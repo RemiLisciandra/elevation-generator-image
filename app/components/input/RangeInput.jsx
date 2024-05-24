@@ -2,7 +2,6 @@
 
 import { cva } from "class-variance-authority";
 import { Input } from "../ui/Input";
-import { useState } from "react";
 
 const rangeInputVariant = cva("range", {
   variants: {
@@ -21,24 +20,24 @@ export const RangeInput = ({
   min = 0,
   max = 100,
   title,
+  value,
+  onChange,
 }) => {
-  const [rangeInputValue, setRangeInputValue] = useState(20);
   return (
-    <>
-      <div className="flex flex-col">
-        <label className="form-control w-full max-w-xs">
-          <span className="label-text">{title}</span>
-        </label>
-        <Input
-          className={rangeInputVariant({ variant, size })}
-          type="range"
-          min={min}
-          max={max}
-          value={rangeInputValue}
-          onChange={(e) => setRangeInputValue(e.target.value)}
-        />
-      </div>
-    </>
+    <div className="flex flex-col">
+      <label className="form-control w-full max-w-xs">
+        <span className="label-text">{title}</span>
+      </label>
+      <Input
+        className={rangeInputVariant({ variant, size })}
+        type="range"
+        min={min}
+        max={max}
+        value={value}
+        onChange={onChange}
+        name={title.toLowerCase()}
+      />
+    </div>
   );
 };
 
