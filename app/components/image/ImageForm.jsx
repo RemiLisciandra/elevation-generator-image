@@ -1,55 +1,15 @@
 "use client";
 
+import ImageGenerator from "./ImageGenerator";
+import NoImage from "./NoImage";
 import { Button } from "../ui/Button";
-import { renderPNG } from "../../utils/render-png";
-import { ImageGenerator } from "./ImageGenerator";
 
-export const ImageForm = ({
-  image,
-  fileName,
-  padding,
-  shadow,
-  radius,
-  setPadding,
-  setShadow,
-  setRadius,
-}) => {
+export const ImageForm = ({ image, settings }) => {
   return (
-    <form>
-      {image && (
-        <div className="border border-gray-200 rounded">
-          <ImageGenerator
-            src={image}
-            padding={padding}
-            shadow={shadow}
-            radius={radius}
-            setPadding={setPadding}
-            setShadow={setShadow}
-            setRadius={setRadius}
-          />
-        </div>
-      )}
+    <form className="w-full">
+      {image ? <ImageGenerator {...image} settings={settings} /> : <NoImage />}
       <div className="gap-2 flex justify-center mt-3">
-        <Button
-          type="submit"
-          disabled={!image}
-          onClick={async () => {
-            const { blob } = await renderPNG({
-              image,
-              settings: { padding, shadow, radius },
-            });
-            const url = URL.createObjectURL(blob);
-            if (url && fileName) {
-              const link = document.createElement("a");
-              link.href = url;
-              link.download = fileName;
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              window.URL.revokeObjectURL(url);
-            }
-          }}
-        >
+        <Button disabled={!image} onClick={() => null}>
           Download
         </Button>
         <Button variant="secondary" disabled={!image} onClick={() => null}>

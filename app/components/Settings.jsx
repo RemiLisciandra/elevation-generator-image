@@ -1,22 +1,33 @@
 "use client";
 
+import FileInput from "./input/FileInput";
 import { RangeInput } from "./input/RangeInput";
-import { FileInput } from "./input/FileInput";
 
-export const Settings = ({
-  onImageChange,
-  padding,
-  radius,
-  shadow,
-  setPadding,
-  setRadius,
-  setShadow,
-  fileName,
-  setFileName,
-}) => {
-  const handleFileSelect = (fileData, name) => {
-    onImageChange(fileData);
-    setFileName(name);
+export const Settings = ({ setImage, setSettings, settings }) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onload = function () {
+      const img = new Image();
+      img.onload = function () {
+        setImage({
+          height: img.height,
+          width: img.width,
+          src: img.src,
+          name: file.name,
+        });
+      };
+      img.src = fileReader.result;
+    };
+    fileReader.readAsDataURL(file);
+  };
+
+  const setSetting = (name, value) => {
+    setSettings((curr) => ({
+      ...curr,
+      [name]: value,
+    }));
   };
 
   return (
@@ -26,24 +37,24 @@ export const Settings = ({
           <h1 className="text-xl font-bold">Settings</h1>
         </div>
         <div className="flex flex-col gap-4">
-          <FileInput title={fileName} onFileSelect={handleFileSelect} />
+          <FileInput onChange={handleFileChange} />
           <RangeInput
-            max={99}
             title="Padding"
-            value={parseInt(padding)}
-            onChange={(e) => setPadding(e.target.value + "px")}
+            name="padding"
+            value={settings.padding}
+            onChange={(e) => setSetting("padding", e.target.value)}
           />
           <RangeInput
-            max={99}
             title="Shadow"
-            value={shadow}
-            onChange={(e) => setShadow(e.target.value)}
+            name="shadow"
+            value={settings.shadow}
+            onChange={(e) => setSetting("shadow", e.target.value)}
           />
           <RangeInput
-            max={99}
             title="Radius"
-            value={parseInt(radius)}
-            onChange={(e) => setRadius(e.target.value + "px")}
+            name="radius"
+            value={settings.radius}
+            onChange={(e) => setSetting("radius", e.target.value)}
           />
         </div>
       </div>

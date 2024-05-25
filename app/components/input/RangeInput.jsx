@@ -19,6 +19,7 @@ export const RangeInput = ({
   size = "sm",
   min = 0,
   max = 100,
+  name,
   title,
   value,
   onChange,
@@ -33,9 +34,9 @@ export const RangeInput = ({
         type="range"
         min={min}
         max={max}
+        name={name}
         value={value}
         onChange={onChange}
-        name={title.toLowerCase()}
       />
     </div>
   );

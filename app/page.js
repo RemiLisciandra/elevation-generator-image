@@ -6,39 +6,21 @@ import { ImageContainer } from "./components/image/ImageContainer";
 import { useState } from "react";
 
 export default function Home() {
-  const [image, setImage] = useState(null);
-  const [fileName, setFileName] = useState("file");
-  const [padding, setPadding] = useState("0px");
-  const [shadow, setShadow] = useState("0");
-  const [radius, setRadius] = useState("0px");
-
-  const handleImageChange = (imageData) => {
-    setImage(imageData);
-  };
+  const [image, setImage] = useState();
+  const [settings, setSettings] = useState({
+    padding: 0,
+    shadow: 0,
+    radius: 0,
+  });
 
   return (
     <MainLayout>
       <Settings
-        onImageChange={handleImageChange}
-        padding={padding}
-        radius={radius}
-        shadow={shadow}
-        setPadding={setPadding}
-        setRadius={setRadius}
-        setShadow={setShadow}
-        fileName={fileName}
-        setFileName={setFileName}
+        setImage={setImage}
+        setSettings={setSettings}
+        settings={settings}
       />
-      <ImageContainer
-        image={image}
-        fileName={fileName}
-        padding={padding}
-        radius={radius}
-        shadow={shadow}
-        setPadding={setPadding}
-        setRadius={setRadius}
-        setShadow={setShadow}
-      />
+      <ImageContainer image={image} settings={settings} />
     </MainLayout>
   );
 }

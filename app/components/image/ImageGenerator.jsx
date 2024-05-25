@@ -4,23 +4,30 @@ import Image from "next/image";
 
 export const ImageGenerator = ({
   src,
-  padding,
-  shadow,
-  radius,
-  alt = "Image",
+  width,
+  height,
+  name = "image",
+  settings,
 }) => {
   return (
-    <div style={{ padding: padding }}>
-      <Image
-        src={src}
-        alt={alt}
-        width={500}
-        height={500}
+    <div className="border border-gray-200 rounded">
+      <div
         style={{
-          borderRadius: radius,
-          boxShadow: `0px 0px ${shadow}px rgba(0,0,0,0.75)`,
+          padding: `${settings.padding}px`,
         }}
-      />
+      >
+        <Image
+          alt={name}
+          src={src}
+          height={height}
+          width={width}
+          name={name}
+          style={{
+            boxShadow: `0 0 ${settings.shadow}px rgba(0,0,0,0.5)`,
+            borderRadius: `${settings.radius}px`,
+          }}
+        />
+      </div>
     </div>
   );
 };
