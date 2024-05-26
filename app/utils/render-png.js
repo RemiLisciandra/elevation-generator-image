@@ -1,5 +1,5 @@
 import satori from "satori";
-import { ImageGenerator } from "./ImageGenerator";
+import { ImageGenerator } from "../components/image/ImageGenerator";
 
 const convertSVGToPNG = (() => {
   if (typeof window === "undefined") {
@@ -51,6 +51,7 @@ export async function renderPNG({ image, settings }) {
     <ImageGenerator settings={newSettings} image={image} />,
     {
       width: image.width,
+      height: image.height,
     }
   );
 
