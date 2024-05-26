@@ -7,7 +7,7 @@ import { renderPNG } from "@/app/utils/render-png";
 
 export const ImageForm = ({ image, settings }) => {
   return (
-    <form className="w-full" style={{ display: image ? "block" : "none" }}>
+    <form className="w-full">
       {image ? <ImageGenerator {...image} settings={settings} /> : <NoImage />}
       <div className="gap-2 flex justify-center mt-3">
         <Button
