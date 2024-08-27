@@ -6,9 +6,8 @@ import { RangeInput } from "./input/RangeInput";
 export const Settings = ({ setImage, setSettings, settings }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    const fileReader = new FileReader();
-
-    fileReader.onload = function () {
+    const reader = new FileReader();
+    reader.onload = function () {
       const img = new Image();
       img.onload = function () {
         setImage({
@@ -18,9 +17,9 @@ export const Settings = ({ setImage, setSettings, settings }) => {
           name: file.name,
         });
       };
-      img.src = fileReader.result;
+      img.src = reader.result;
     };
-    fileReader.readAsDataURL(file);
+    reader.readAsDataURL(file);
   };
 
   const setSetting = (name, value) => {
@@ -29,7 +28,6 @@ export const Settings = ({ setImage, setSettings, settings }) => {
       [name]: value,
     }));
   };
-
   return (
     <section className="flex-1 flex items-center">
       <div className="bg-gray-100 rounded-lg p-5 w-full shadow-xl">

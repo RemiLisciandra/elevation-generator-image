@@ -17,27 +17,27 @@ const rangeInputVariant = cva("range", {
 export const RangeInput = ({
   variant = "primary",
   size = "sm",
+  title,
   min = 0,
   max = 100,
-  name,
-  title,
-  value,
   onChange,
+  name,
+  value,
 }) => {
   return (
     <div className="flex flex-col">
       <label className="form-control w-full max-w-xs">
         <span className="label-text">{title}</span>
+        <Input
+          type="range"
+          min={min}
+          max={max}
+          className={rangeInputVariant(variant, size)}
+          onChange={onChange}
+          name={name}
+          value={value}
+        />
       </label>
-      <Input
-        className={rangeInputVariant({ variant, size })}
-        type="range"
-        min={min}
-        max={max}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
     </div>
   );
 };

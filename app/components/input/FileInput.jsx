@@ -15,18 +15,18 @@ const fileInputVariant = cva(
   }
 );
 
-export const FileInput = ({ variant = "primary", name = "file", onChange }) => {
+export const FileInput = ({ variant = "primary", onChange }) => {
   return (
     <div className="flex flex-col">
       <label className="form-control w-full max-w-xs">
         <span className="label-text">File</span>
+        <Input
+          type="file"
+          name="file"
+          className={fileInputVariant(variant)}
+          onChange={onChange}
+        />
       </label>
-      <Input
-        className={fileInputVariant({ variant })}
-        type="file"
-        name={name}
-        onChange={onChange}
-      />
     </div>
   );
 };

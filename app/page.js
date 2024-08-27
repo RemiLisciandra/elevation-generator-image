@@ -12,15 +12,14 @@ export default function Home() {
     shadow: 0,
     radius: 0,
   });
-
   return (
     <MainLayout>
       <Settings
         setImage={setImage}
         setSettings={setSettings}
         settings={settings}
-      />
-      <ImageContainer image={image} settings={settings} />
+      ></Settings>
+      <ImageContainer image={image} settings={settings}></ImageContainer>
     </MainLayout>
   );
 }

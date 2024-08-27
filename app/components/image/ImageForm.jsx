@@ -8,7 +8,11 @@ import { renderPNG } from "@/app/utils/render-png";
 export const ImageForm = ({ image, settings }) => {
   return (
     <form className="w-full">
-      {image ? <ImageGenerator {...image} settings={settings} /> : <NoImage />}
+      {image ? (
+        <ImageGenerator image={image} settings={settings} />
+      ) : (
+        <NoImage />
+      )}
       <div className="gap-2 flex justify-center mt-3">
         <Button
           disabled={!image}
@@ -17,34 +21,17 @@ export const ImageForm = ({ image, settings }) => {
               image,
               settings,
             });
-            if (blob) {
-              const url = URL.createObjectURL(blob);
-              const link = document.createElement("a");
-              link.href = url;
-              link.download = `${image.name}`;
-              link.click();
-            }
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `${image.name}.png`;
+            a.click();
           }}
         >
           Download
         </Button>
-        <Button
-          variant="secondary"
-          disabled={!image}
-          onClick={async () => {
-            const { blob } = await renderPNG({
-              image,
-              settings,
-            });
-            if (blob) {
-              await navigator.clipboard.write([
-                new ClipboardItem({
-                  [blob.type]: blob,
-                }),
-              ]);
-            }
-          }}
-        >
+        <Button disabled={!image} onClick={() => null} variant="secondary">
           Copy
         </Button>
       </div>

@@ -2,34 +2,26 @@
 
 import Image from "next/image";
 
-export const ImageGenerator = ({
-  src,
-  width,
-  height,
-  name = "image",
-  settings,
-}) => {
+export const ImageGenerator = ({ image, settings }) => {
   return (
-    <div className="border border-gray-200 rounded" style={{ display: "flex" }}>
-      <div
+    <div
+      style={{
+        display: "flex",
+        padding: `${settings.padding}px`,
+      }}
+    >
+      <Image
+        alt={image.name}
+        src={image.src}
+        width={image.width}
+        height={image.height}
+        name={image.name}
         style={{
-          padding: `${settings.padding}px`,
+          boxShadow: `0 0 ${settings.shadow}px rgba(0,0,0,.${settings.shadow})`,
+          borderRadius: `${settings.radius}px`,
           display: "flex",
         }}
-      >
-        <Image
-          alt={name}
-          src={src}
-          height={height}
-          width={width}
-          name={name}
-          style={{
-            boxShadow: `0 0 ${settings.shadow}px rgba(0,0,0,0.5)`,
-            borderRadius: `${settings.radius}px`,
-            display: "flex",
-          }}
-        />
-      </div>
+      />
     </div>
   );
 };
